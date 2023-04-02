@@ -1,4 +1,4 @@
-import AppLayout from '@/components/app-layout/AppLayout';
+import AuthLayout from '@/components/auth-layout/AuthLayout';
 import TextInput from '@/components/text-input/TextInput';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
@@ -13,6 +13,7 @@ function SignIn() {
   const signIn = async (e) => {
     e.preventDefault();
     // Here an api call will be made that will redirect the user authenticate and sign in the user.
+    router.push('/');
   };
 
   const updateFormData = (fieldName, value) => {
@@ -79,7 +80,7 @@ function SignIn() {
 }
 
 SignIn.getLayout = function getLayout(page) {
-  return <AppLayout>{page}</AppLayout>;
+  return <AuthLayout>{page}</AuthLayout>;
 };
 
 export default SignIn;
