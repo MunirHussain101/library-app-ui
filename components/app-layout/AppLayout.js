@@ -1,9 +1,15 @@
-import React from "react";
+import React from 'react';
+import Footer from '../footer/Footer';
+import Header from '../header/Header';
 
 const AppLayout = ({ children }) => {
   return (
-    <div className="w-screen min-h-screen flex justify-center items-center bg-blue-200 font-ubuntu">
-      {children}
+    <div className="w-full min-h-screen flex flex-col justify-between bg-blue-200 font-ubuntu">
+      <div>
+        <Header />
+        {children}
+      </div>
+      <Footer />
     </div>
   );
 };
