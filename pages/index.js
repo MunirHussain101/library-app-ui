@@ -19,7 +19,7 @@ function Home() {
 
   return (
     <div className="w-full h-full">
-      <div className="flex justify-between items-center mx-10">
+      <div className="flex flex-col lg:flex-row justify-center items-center lg:justify-between lg:items-center mx-10">
         <div />
         <ul className="flex justify-center items-center">
           <li className="mr-2">
