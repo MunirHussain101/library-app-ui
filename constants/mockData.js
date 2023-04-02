@@ -323,8 +323,10 @@ export const bookDetails = {
   title: 'harry Potter',
   author: 'J.K Rowling',
   date: '26 June 1997',
-  image:
+  images: [
     'https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/81m1s4wIPML.jpg',
+    'https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F6%2F2016%2F09%2Fhpsorcstone.jpg',
+  ],
   collection: collectionTypes.READ,
   price: 15.99,
   summary:

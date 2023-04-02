@@ -5,9 +5,9 @@ const Header = () => {
   return (
     <header className="sticky top-0 z-30 w-full px-2 py-4 bg-white sm:px-4 shadow-xl mb-5">
       <div className="flex items-center justify-between mx-auto max-w-7xl">
-        <a href="#">
+        <Link href="/">
           <span className="text-2xl font-extrabold text-gray-800">Books</span>
-        </a>
+        </Link>
         <div className="flex items-center space-x-1">
           <ul className=" space-x-2 inline-flex">
             <li>
