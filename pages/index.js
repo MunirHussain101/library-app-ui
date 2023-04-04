@@ -8,25 +8,30 @@ import {
 import BookCard from '@/components/book-card/BookCard';
 import { useRouter } from 'next/router';
 import { reloadUserAction } from '../store/auth/authActions'
+import { getBooksAction } from '../store/book/bookActions';
 import { useDispatch, useSelector } from 'react-redux';
 
 function Home() {
   const router = useRouter();
-  const [selectedIndex, setSelectedIndex] = useState(0);
   const dispatch = useDispatch()
-  const { root, authReducer: auth } = useSelector(
-    (state) => state
-  );
-
-  useEffect(() => {
-    if (!auth.isLoggedIn) {
-      router.push('/auth/signin');
-    }
-  }, [auth.isLoggedIn])
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const { authReducer: auth, bookReducer  } = useSelector((state) => state);
 
   useEffect(() => {
     dispatch(reloadUserAction())
+    getAllBooks()
   }, [])
+
+  const getAllBooks = (searchStr = '') => {
+    const params = {
+      user_id: auth.isLoggedIn ? auth.user.id : 0,
+      sort: 'ASC',
+      search_text: searchStr,
+    }
+    dispatch(getBooksAction(params))
+  }
+
+
 
   const changeTabs = (index) => {
     if (selectedIndex === index) return;
@@ -35,54 +40,57 @@ function Home() {
 
   return (
     <div className="w-full h-full">
-      <div className="flex flex-col lg:flex-row justify-center items-center lg:justify-between lg:items-center mx-10">
-        <div />
-        <ul className="flex justify-center items-center">
-          <li className="mr-2">
-            <div
-              onClick={() => changeTabs(0)}
-              aria-current="page"
-              className={`inline-block  text-blue-600 rounded-t-lg py-4 px-4 text-sm font-medium text-center cursor-pointer ${
-                selectedIndex === 0
-                  ? 'active dark:bg-gray-800 dark:text-gray-200'
-                  : 'dark:text-gray-500  dark:hover:bg-gray-800 dark:hover:text-gray-300'
-              } `}
-            >
-              Want to read
-            </div>
-          </li>
-          <li className="mr-2">
-            <div
-              onClick={() => changeTabs(1)}
-              className={`inline-block  text-blue-600 rounded-t-lg py-4 px-4 text-sm font-medium text-center cursor-pointer ${
-                selectedIndex === 1
-                  ? 'active dark:bg-gray-800 dark:text-gray-200'
-                  : 'dark:text-gray-500  dark:hover:bg-gray-800 dark:hover:text-gray-300'
-              } `}
-            >
-              Reading
-            </div>
-          </li>
-          <li className="mr-2">
-            <div
-              onClick={() => changeTabs(2)}
-              className={`inline-block  text-blue-600 rounded-t-lg py-4 px-4 text-sm font-medium text-center cursor-pointer ${
-                selectedIndex === 2
-                  ? 'active dark:bg-gray-800 dark:text-gray-200'
-                  : 'dark:text-gray-500  dark:hover:bg-gray-800 dark:hover:text-gray-300'
-              } `}
-            >
-              Read
-            </div>
-          </li>
-        </ul>
-        <button
-          onClick={() => router.push('/add-book')}
-          className="bg-gray-800 p-3 rounded-lg hover:bg-gray-900 transition duration-[175ms] flex justify-center items-center w-[150px] mt-4"
-        >
-          <span className="text-sm font-bold text-gray-200">{'Add Book'}</span>
-        </button>
-      </div>
+      {
+        auth.isLoggedIn && 
+        <div className="flex flex-col lg:flex-row justify-center items-center lg:justify-between lg:items-center mx-10">
+          <ul className="flex justify-center items-center">
+            <li className="mr-2">
+              <div
+                onClick={() => changeTabs(0)}
+                aria-current="page"
+                className={`inline-block  text-blue-600 rounded-t-lg py-4 px-4 text-sm font-medium text-center cursor-pointer ${
+                  selectedIndex === 0
+                    ? 'active dark:bg-gray-800 dark:text-gray-200'
+                    : 'dark:text-gray-500  dark:hover:bg-gray-800 dark:hover:text-gray-300'
+                } `}
+              >
+                Want to read
+              </div>
+            </li>
+            <li className="mr-2">
+              <div
+                onClick={() => changeTabs(1)}
+                className={`inline-block  text-blue-600 rounded-t-lg py-4 px-4 text-sm font-medium text-center cursor-pointer ${
+                  selectedIndex === 1
+                    ? 'active dark:bg-gray-800 dark:text-gray-200'
+                    : 'dark:text-gray-500  dark:hover:bg-gray-800 dark:hover:text-gray-300'
+                } `}
+              >
+                Reading
+              </div>
+            </li>
+            <li className="mr-2">
+              <div
+                onClick={() => changeTabs(2)}
+                className={`inline-block  text-blue-600 rounded-t-lg py-4 px-4 text-sm font-medium text-center cursor-pointer ${
+                  selectedIndex === 2
+                    ? 'active dark:bg-gray-800 dark:text-gray-200'
+                    : 'dark:text-gray-500  dark:hover:bg-gray-800 dark:hover:text-gray-300'
+                } `}
+              >
+                Read
+              </div>
+            </li>
+          </ul>
+          <button
+            onClick={() => router.push('/add-book')}
+            className="bg-gray-800 p-3 rounded-lg hover:bg-gray-900 transition duration-[175ms] flex justify-center items-center w-[150px] mt-4"
+          >
+            <span className="text-sm font-bold text-gray-200">{'Add Book'}</span>
+          </button>
+        </div>
+      }
+      
       <div className={`flex flex-row flex-wrap gap-10 m-10`}>
         {selectedIndex === 0
           ? booksListWantToRead.map((book, index) => (
