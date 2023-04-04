@@ -1,20 +1,32 @@
 import AuthLayout from '@/components/auth-layout/AuthLayout';
 import TextInput from '@/components/text-input/TextInput';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { registerUserAction } from '../../store/auth/authActions'
+import CircularProgress from '@mui/material/CircularProgress';
 
 function SignUp() {
   const router = useRouter();
+  const dispatch = useDispatch()
+  const { root, authReducer: auth } = useSelector(
+    (state) => state
+  );
   const [formData, setFormData] = useState({
     email: '',
     password: '',
     name: '',
   });
 
+  useEffect(() => {
+    if (auth.isLoggedIn) {
+      router.push('/');
+    }
+  }, [auth.isLoggedIn])
+
   const signUp = async (e) => {
     e.preventDefault();
-    // Here an api call will be made that will redirect the user authenticate and sign up the user.
-    router.push('/');
+    dispatch(registerUserAction(formData))
   };
 
   const updateFormData = (fieldName, value) => {
@@ -74,7 +86,12 @@ function SignUp() {
             type="submit"
             className="bg-gray-800 p-3 rounded-lg hover:bg-gray-900 transition duration-[175ms] flex justify-center items-center w-full mt-4"
           >
-            <span className="text-sm font-bold text-gray-200">{'Sign In'}</span>
+
+          { root.isLoading ? 
+          <CircularProgress size="20px" color="primary"/> :
+          <span className="text-sm font-bold text-gray-200">{'Sign Up'}</span>
+          }
+          
           </button>
           <span className="text-gray-200 text-sm text-center mt-2">
             {'Already have an account? '}

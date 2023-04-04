@@ -1,19 +1,31 @@
 import AuthLayout from '@/components/auth-layout/AuthLayout';
 import TextInput from '@/components/text-input/TextInput';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { loginUserAction } from '../../store/auth/authActions'
+import CircularProgress from '@mui/material/CircularProgress';
 
 function SignIn() {
   const router = useRouter();
+  const dispatch = useDispatch()
+  const { root, authReducer: auth } = useSelector(
+    (state) => state
+  );
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
 
+  useEffect(() => {
+    if (auth.isLoggedIn) {
+      router.push('/');
+    }
+  }, [auth.isLoggedIn])
+
   const signIn = async (e) => {
     e.preventDefault();
-    // Here an api call will be made that will redirect the user authenticate and sign in the user.
-    router.push('/');
+    dispatch(loginUserAction(formData))
   };
 
   const updateFormData = (fieldName, value) => {
@@ -62,7 +74,10 @@ function SignIn() {
             type="submit"
             className="bg-gray-800 p-3 rounded-lg hover:bg-gray-900 transition duration-[175ms] flex justify-center items-center w-full mt-4"
           >
+          { root.isLoading ? 
+            <CircularProgress size="20px" color="primary"/> :
             <span className="text-sm font-bold text-gray-200">{'Sign In'}</span>
+          }
           </button>
           <span className="text-gray-200 text-sm text-center mt-2">
             {"Don't have an account? "}

@@ -1,5 +1,5 @@
 import AppLayout from '@/components/app-layout/AppLayout';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   booksListRead,
   booksListReading,
@@ -7,10 +7,26 @@ import {
 } from '@/constants/mockData';
 import BookCard from '@/components/book-card/BookCard';
 import { useRouter } from 'next/router';
+import { reloadUserAction } from '../store/auth/authActions'
+import { useDispatch, useSelector } from 'react-redux';
 
 function Home() {
   const router = useRouter();
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const dispatch = useDispatch()
+  const { root, authReducer: auth } = useSelector(
+    (state) => state
+  );
+
+  useEffect(() => {
+    if (!auth.isLoggedIn) {
+      router.push('/auth/signin');
+    }
+  }, [auth.isLoggedIn])
+
+  useEffect(() => {
+    dispatch(reloadUserAction())
+  }, [])
 
   const changeTabs = (index) => {
     if (selectedIndex === index) return;
