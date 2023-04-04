@@ -1,6 +1,7 @@
 import { setLoading } from '../actions/actions';
-import { getBookSuccess } from '../book/bookActionsType';
-import { GET_ALL_BOOKS_GQL } from '../../graphql/mutations'
+import { getBookSuccess, getSelectedBookSuccess } from '../book/bookActionsType';
+import { GET_ALL_BOOKS_GQL, ADD_COLLECTIONS_GQL, UPDATE_COLLECTIONS_GQL } from '../../graphql/mutations'
+import { BOOK_BY_ID_GQL, BOOK_AND_COLLECTION_BY_ID_GQL } from '../../graphql/queries'
 import { apolloClient } from '../../graphql/apollo-client'
 import { LocalStorageConstants } from '../../constants/localStorageContants'
 
@@ -12,7 +13,6 @@ export const getBooksAction = (params) => (dispatch) => {
       variables: { getAllBooksArgs: params },
     })
     .then((res) => {
-      console.log(res.data)
       const { allBooks } = res.data;
       const updRes = processBookList(allBooks)
       dispatch(getBookSuccess(updRes));
@@ -23,6 +23,68 @@ export const getBooksAction = (params) => (dispatch) => {
       dispatch(setLoading(false));
     });
 };
+
+export const getBookByIdAction = (bookId) => (dispatch) => {
+  dispatch(setLoading(true));
+  return apolloClient
+    .query({
+      query: BOOK_BY_ID_GQL,
+      variables: { bookId: bookId },
+    })
+    .then((res) => {
+      const { bookById } = res.data;
+      dispatch(getSelectedBookSuccess(bookById));
+      dispatch(setLoading(false));
+    })
+    .catch((err) => {
+      console.log(err.message || err);
+      dispatch(setLoading(false));
+    });
+};
+
+export const getBooksByIdAction = (bookId, userId) => (dispatch) => {
+  dispatch(setLoading(true));
+  return apolloClient
+    .query({
+      query: BOOK_AND_COLLECTION_BY_ID_GQL,
+      variables: { bookId: bookId, userId: userId},
+    })
+    .then((res) => {
+      const { bookCollectionById } = res.data;
+      const book = {...bookCollectionById.book, collectionId: bookCollectionById.collection.id, status: bookCollectionById.collection.status}
+      dispatch(getSelectedBookSuccess(book));
+      dispatch(setLoading(false));
+    })
+    .catch((err) => {
+      console.log(err.message || err);
+      dispatch(setLoading(false));
+    });
+};
+
+export const addBookToCollection = (params, updBook) => (dispatch) => {
+  return apolloClient
+    .mutate({
+      mutation: ADD_COLLECTIONS_GQL,
+      variables: { addCollectionArgs: params },
+    })
+    .then((res) => {})
+    .catch((err) => {
+      console.log(err.message || err);
+    });
+};
+
+export const updateBookCollection = (params, updBook) => (dispatch) => {
+  return apolloClient
+    .mutate({
+      mutation: UPDATE_COLLECTIONS_GQL,
+      variables: { updateCollectionArgs: params },
+    })
+    .then((res) => {})
+    .catch((err) => {
+      console.log(err.message || err);
+    });
+};
+
 
 const processBookList = (booksRes) => {
   const {books, book_collection} = booksRes
@@ -40,6 +102,8 @@ const processBookList = (booksRes) => {
 
       } else if (isExistInCollection.status == 'reading') {
         results.readingBooks.push({...book, status: 'reading'})
+      } else if (isExistInCollection.status == 'want to read') {
+        results.allBooks.push({...book, status: 'want to read'})
       }
       return
     }

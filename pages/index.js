@@ -1,14 +1,8 @@
 import AppLayout from '@/components/app-layout/AppLayout';
 import { useEffect, useState } from 'react';
-import {
-  booksListRead,
-  booksListReading,
-  booksListWantToRead,
-} from '@/constants/mockData';
 import BookCard from '@/components/book-card/BookCard';
 import { useRouter } from 'next/router';
 import { reloadUserAction } from '../store/auth/authActions'
-import { getBooksAction } from '../store/book/bookActions';
 import { useDispatch, useSelector } from 'react-redux';
 
 function Home() {
@@ -19,19 +13,7 @@ function Home() {
 
   useEffect(() => {
     dispatch(reloadUserAction())
-    getAllBooks()
   }, [])
-
-  const getAllBooks = (searchStr = '') => {
-    const params = {
-      user_id: auth.isLoggedIn ? auth.user.id : 0,
-      sort: 'ASC',
-      search_text: searchStr,
-    }
-    dispatch(getBooksAction(params))
-  }
-
-
 
   const changeTabs = (index) => {
     if (selectedIndex === index) return;
@@ -54,7 +36,7 @@ function Home() {
                     : 'dark:text-gray-500  dark:hover:bg-gray-800 dark:hover:text-gray-300'
                 } `}
               >
-                Want to read
+                Want To Read
               </div>
             </li>
             <li className="mr-2">
@@ -92,17 +74,39 @@ function Home() {
       }
       
       <div className={`flex flex-row flex-wrap gap-10 m-10`}>
-        {selectedIndex === 0
-          ? booksListWantToRead.map((book, index) => (
+
+      { selectedIndex === 0 &&
+        <> 
+          { bookReducer.allBooks.length ? 
+            bookReducer.allBooks.map((book, index) => (
               <BookCard key={index} book={book} />
-            ))
-          : selectedIndex === 1
-          ? booksListReading.map((book, index) => (
+            )) : 
+            <div className="w-full  flex justify-center">No Books Available in this section</div>
+          }
+        </>
+          
+      }
+      { selectedIndex === 1 &&
+        <> 
+          { bookReducer.readingBooks.length ? 
+            bookReducer.readingBooks.map((book, index) => (
               <BookCard key={index} book={book} />
-            ))
-          : booksListRead.map((book, index) => (
+            )) : 
+            <div className="w-full flex justify-center">No Books Available in this section</div>
+          }
+        </>
+      }
+      { selectedIndex === 2 &&
+        <> 
+          { bookReducer.readBooks.length ? 
+            bookReducer.readBooks.map((book, index) => (
               <BookCard key={index} book={book} />
-            ))}
+            )) : 
+            <div className="w-full flex justify-center">No Books Available in this section</div>
+          }
+        </>
+      }
+
       </div>
     </div>
   );

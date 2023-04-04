@@ -3,7 +3,8 @@ import { BookActionsType } from '../book/bookActionsType'
 const initialState = {
   allBooks: [],
   readBooks: [],
-  readingBooks: []
+  readingBooks: [],
+  book: null
 };
 
 const bookReducer = (
@@ -21,12 +22,27 @@ const bookReducer = (
       };
     }
 
+    case BookActionsType.GET_BOOK_SUCCESS: {
+      return {
+        ...state,
+        book: action.payload
+      };
+    }
+
+    case BookActionsType.UPDATE_BOOK: {
+      return {
+        ...state,
+        book: action.payload
+      };
+    }
+
     case BookActionsType.RESET_BOOKS: {
       return {
         ...state,
         allBooks: [],
         readBooks: [],
-        readingBooks: []
+        readingBooks: [],
+        book: null
       };
     }
     

@@ -11,15 +11,16 @@ const BookCard = ({ book }) => {
     >
       <div>
         <Image
-          src={book.image}
+          src={book.images[0] || '/book-thumbnail.png'}
           alt={'Book Image'}
-          width={120}
-          height={120}
+          width={160}
+          height={160}
           className={'rounded-md'}
         />
       </div>
-      <div className="capitalize text-gray-800 font-semibold">{book.title}</div>
-      <div className="capitalize text-gray-600">{book.author}</div>
+      <div className="capitalize text-gray-800 font-semibold">{book.title || ''}</div>
+      <div className="capitalize text-gray-600">{book.author || ''}</div>
+      <div className="capitalize text-gray-500 font-semibold">{book.status || ''}</div>
     </div>
   );
 };
