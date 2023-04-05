@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+
 const TextInput = ({
   inputValue = '',
   setInputValue = () => {},

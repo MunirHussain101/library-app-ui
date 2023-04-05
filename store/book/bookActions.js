@@ -1,9 +1,10 @@
 import { setLoading } from '../actions/actions';
 import { getBookSuccess, getSelectedBookSuccess } from '../book/bookActionsType';
-import { GET_ALL_BOOKS_GQL, ADD_COLLECTIONS_GQL, UPDATE_COLLECTIONS_GQL } from '../../graphql/mutations'
+import { GET_ALL_BOOKS_GQL, ADD_COLLECTIONS_GQL, UPDATE_COLLECTIONS_GQL, ADD_BOOK_GQL } from '../../graphql/mutations'
 import { BOOK_BY_ID_GQL, BOOK_AND_COLLECTION_BY_ID_GQL } from '../../graphql/queries'
 import { apolloClient } from '../../graphql/apollo-client'
 import { LocalStorageConstants } from '../../constants/localStorageContants'
+import { useRouter } from 'next/router';
 
 export const getBooksAction = (params) => (dispatch) => {
   dispatch(setLoading(true));
@@ -85,6 +86,23 @@ export const updateBookCollection = (params, updBook) => (dispatch) => {
     });
 };
 
+export const addNewBookAction = (params) => (dispatch) => {
+  return apolloClient
+    .mutate({
+      mutation: ADD_BOOK_GQL,
+      variables: { addBookArgs: params },
+    })
+    .then((res) => {
+      const { addBook } = res.data;
+      dispatch(getSelectedBookSuccess(addBook));
+      dispatch(setLoading(false));
+    })
+    .catch((err) => {
+      dispatch(setLoading(false));
+      console.log(err.message || err);
+    });
+};
+
 
 const processBookList = (booksRes) => {
   const {books, book_collection} = booksRes
@@ -111,4 +129,4 @@ const processBookList = (booksRes) => {
   });
 
   return results
-} 
+}

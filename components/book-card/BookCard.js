@@ -4,6 +4,11 @@ import React from 'react';
 
 const BookCard = ({ book }) => {
   const router = useRouter();
+
+  const getImageSource = (book) => {
+    return book && book.images.length ? book.images[0] : '/book-thumbnail.png'
+  }
+
   return (
     <div
       onClick={() => router.push(`/books/${book.id}`)}
@@ -11,11 +16,11 @@ const BookCard = ({ book }) => {
     >
       <div>
         <Image
-          src={book.images[0] || '/book-thumbnail.png'}
+          src={getImageSource(book)}
           alt={'Book Image'}
-          width={160}
+          width={150}
           height={160}
-          className={'rounded-md'}
+          className={'rounded-md mb-2'}
         />
       </div>
       <div className="capitalize text-gray-800 font-semibold">{book.title || ''}</div>

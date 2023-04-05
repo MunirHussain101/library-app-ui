@@ -2,7 +2,8 @@ export const BookActionsType = {
   GET_BOOKS_SUCCESS: 'GET_BOOKS_SUCCESS',
   RESET_BOOKS: 'RESET_BOOKS',
   GET_BOOK_SUCCESS: 'GET_BOOK_SUCCESS',
-  UPDATE_BOOK: 'UPDATE_BOOK'
+  UPDATE_BOOK: 'UPDATE_BOOK',
+  RESET_BOOK_FETCH: 'RESET_BOOK_FETCH'
 };
 
 export const getBookSuccess = (books) => {
@@ -29,5 +30,12 @@ export const updateBook = (params) => {
   return {
     payload: params,
     type: BookActionsType.UPDATE_BOOK
+  };
+};
+
+export const resetBookFetch = (params) => {
+  return {
+    payload: params,
+    type: BookActionsType.RESET_BOOK_FETCH
   };
 };

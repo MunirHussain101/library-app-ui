@@ -4,7 +4,8 @@ const initialState = {
   allBooks: [],
   readBooks: [],
   readingBooks: [],
-  book: null
+  book: null,
+  isBookFetch: false
 };
 
 const bookReducer = (
@@ -25,6 +26,7 @@ const bookReducer = (
     case BookActionsType.GET_BOOK_SUCCESS: {
       return {
         ...state,
+        isBookFetch: true,
         book: action.payload
       };
     }
@@ -36,13 +38,20 @@ const bookReducer = (
       };
     }
 
+    case BookActionsType.RESET_BOOK_FETCH: {
+      return {
+        ...state,
+        isBookFetch: action.payload,
+      };
+    }
+
     case BookActionsType.RESET_BOOKS: {
       return {
         ...state,
-        allBooks: [],
         readBooks: [],
         readingBooks: [],
-        book: null
+        book: null,
+        isBookFetch: false
       };
     }
     

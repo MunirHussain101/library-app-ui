@@ -16,6 +16,7 @@ const BookDetails = () => {
   const { booksid: bookId } = router.query
   const { root, bookReducer, authReducer: auth  } = useSelector((state) => state);
   const [bookDetails, setBookDetails] = useState(null)
+  
   useEffect(() => {
     getSelectedBookDetails()
   }, [])

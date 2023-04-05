@@ -33,6 +33,7 @@ export const ADD_BOOK_GQL = gql`
       ratings
       book_created_at
       author
+      description
     }
   }
 `
@@ -46,6 +47,7 @@ export const UPDATE_BOOK_GQL = gql`
       ratings
       book_created_at
       author
+      description
     }
   }
 `
