@@ -2,18 +2,18 @@ import AppLayout from '@/components/app-layout/AppLayout';
 import { useEffect, useState } from 'react';
 import BookCard from '@/components/book-card/BookCard';
 import { useRouter } from 'next/router';
-import { reloadUserAction } from '../store/auth/authActions'
+import { reloadUserAction } from '../store/auth/authActions';
 import { useDispatch, useSelector } from 'react-redux';
 
 function Home() {
   const router = useRouter();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const { authReducer: auth, bookReducer  } = useSelector((state) => state);
+  const { authReducer: auth, bookReducer } = useSelector((state) => state);
 
   useEffect(() => {
-    dispatch(reloadUserAction())
-  }, [])
+    dispatch(reloadUserAction());
+  }, []);
 
   const changeTabs = (index) => {
     if (selectedIndex === index) return;
@@ -22,8 +22,7 @@ function Home() {
 
   return (
     <div className="w-full h-full">
-      {
-        auth.isLoggedIn && 
+      {auth.isLoggedIn && (
         <div className="flex flex-col lg:flex-row justify-center items-center lg:justify-between lg:items-center mx-10">
           <ul className="flex justify-center items-center">
             <li className="mr-2">
@@ -68,45 +67,55 @@ function Home() {
             onClick={() => router.push('/add-book')}
             className="bg-gray-800 p-3 rounded-lg hover:bg-gray-900 transition duration-[175ms] flex justify-center items-center w-[150px] mt-4"
           >
-            <span className="text-sm font-bold text-gray-200">{'Add Book'}</span>
+            <span className="text-sm font-bold text-gray-200">
+              {'Add Book'}
+            </span>
           </button>
         </div>
-      }
-      
-      <div className={`flex flex-row flex-wrap gap-10 m-10`}>
+      )}
 
-      { selectedIndex === 0 &&
-        <> 
-          { bookReducer.allBooks.length ? 
-            bookReducer.allBooks.map((book, index) => (
-              <BookCard key={index} book={book} />
-            )) : 
-            <div className="w-full  flex justify-center">No Books Available in this section</div>
-          }
-        </>
-          
-      }
-      { selectedIndex === 1 &&
-        <> 
-          { bookReducer.readingBooks.length ? 
-            bookReducer.readingBooks.map((book, index) => (
-              <BookCard key={index} book={book} />
-            )) : 
-            <div className="w-full flex justify-center">No Books Available in this section</div>
-          }
-        </>
-      }
-      { selectedIndex === 2 &&
-        <> 
-          { bookReducer.readBooks.length ? 
-            bookReducer.readBooks.map((book, index) => (
-              <BookCard key={index} book={book} />
-            )) : 
-            <div className="w-full flex justify-center">No Books Available in this section</div>
-          }
-        </>
-      }
-
+      <div
+        className={`flex flex-col justify-center sm:justify-start sm:flex-row flex-wrap gap-10 m-10`}
+      >
+        {selectedIndex === 0 && (
+          <>
+            {bookReducer.allBooks.length ? (
+              bookReducer.allBooks.map((book, index) => (
+                <BookCard key={index} book={book} />
+              ))
+            ) : (
+              <div className="w-full  flex justify-center">
+                No Books Available in this section
+              </div>
+            )}
+          </>
+        )}
+        {selectedIndex === 1 && (
+          <>
+            {bookReducer.readingBooks.length ? (
+              bookReducer.readingBooks.map((book, index) => (
+                <BookCard key={index} book={book} />
+              ))
+            ) : (
+              <div className="w-full flex justify-center">
+                No Books Available in this section
+              </div>
+            )}
+          </>
+        )}
+        {selectedIndex === 2 && (
+          <>
+            {bookReducer.readBooks.length ? (
+              bookReducer.readBooks.map((book, index) => (
+                <BookCard key={index} book={book} />
+              ))
+            ) : (
+              <div className="w-full flex justify-center">
+                No Books Available in this section
+              </div>
+            )}
+          </>
+        )}
       </div>
     </div>
   );
