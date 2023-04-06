@@ -1,3 +1,4 @@
+import { AppConstants } from '@/constants/appConstants';
 import { BookActionsType } from '../book/bookActionsType'
 
 const initialState = {
@@ -5,7 +6,9 @@ const initialState = {
   readBooks: [],
   readingBooks: [],
   book: null,
-  isBookFetch: false
+  bookRatings: null,
+  isBookFetchCIP: false,
+  reviewCIP: ''
 };
 
 const bookReducer = (
@@ -26,8 +29,32 @@ const bookReducer = (
     case BookActionsType.GET_BOOK_SUCCESS: {
       return {
         ...state,
-        isBookFetch: true,
         book: action.payload
+      };
+    }
+
+    case BookActionsType.GET_BOOK_RATINGS_SUCCESS: {
+      return {
+        ...state,
+        isBookFetchCIP: true,
+        bookRatings: action.payload
+      };
+    }
+
+    case BookActionsType.UPDATE_BOOK_RATINGS_SUCCESS: {
+      const bookClone = { ...state.book }
+      const bookRatingsClone = { ...state.bookRatings }
+      bookClone.ratingsTotal = bookClone.ratingsTotal + action.payload.count
+      if (state.bookRatings.count) {
+        bookClone.ratingsCount += 1
+      }
+      bookClone.ratings = bookClone.ratingsTotal / bookClone.ratingsCount
+      bookRatingsClone.count = action.payload.count
+
+      return {
+        ...state,
+        bookRatings: bookRatingsClone,
+        book: bookClone
       };
     }
 
@@ -38,10 +65,24 @@ const bookReducer = (
       };
     }
 
+    case BookActionsType.SET_REVIEW_CIP: {
+      return {
+        ...state,
+        reviewCIP: action.payload
+      };
+    }
+
     case BookActionsType.RESET_BOOK_FETCH: {
       return {
         ...state,
-        isBookFetch: action.payload,
+        isBookFetchCIP: action.payload,
+      };
+    }
+
+    case BookActionsType.RESET_SELECTED_BOOK: {
+      return {
+        ...state,
+        book: action.payload
       };
     }
 
@@ -51,7 +92,7 @@ const bookReducer = (
         readBooks: [],
         readingBooks: [],
         book: null,
-        isBookFetch: false
+        isBookFetchCIP: false
       };
     }
     

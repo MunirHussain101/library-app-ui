@@ -8,8 +8,10 @@ import Paper from '@mui/material/Paper';
 import Popper from '@mui/material/Popper';
 import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
+import { AppConstants } from '../../constants/appConstants'
+AppConstants.READ
 
-const options = ['want to read', 'reading', 'read'];
+const options = [ AppConstants.WANTREAD, AppConstants.READING, AppConstants.READ];
 
 export default function GroupButton({ selectedOption, updatedValue }) {
   const [open, setOpen] = React.useState(false);

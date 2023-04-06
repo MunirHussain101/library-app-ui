@@ -18,7 +18,7 @@ const BookCard = ({ book }) => {
         <Image
           src={getImageSource(book)}
           alt={'Book Image'}
-          width={150}
+          width={155}
           height={160}
           className={'rounded-md mb-2'}
         />

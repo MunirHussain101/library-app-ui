@@ -34,11 +34,11 @@ const AddNewBook = () => {
   }, [])
 
   useEffect(() => {
-    if (bookReducer.isBookFetch) {
+    if (bookReducer.isBookFetchCIP) {
       dispatch(resetBookFetch(false))
       router.push('/')
     }
-  }, [bookReducer.isBookFetch])
+  }, [bookReducer.isBookFetchCIP])
 
   const resetSelectedImages = () => {
     if (chooseFileRef) {

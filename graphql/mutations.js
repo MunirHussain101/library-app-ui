@@ -83,6 +83,19 @@ export const UPDATE_COLLECTIONS_GQL = gql`
     updateCollection(updateCollectionArgs : $updateCollectionArgs)
   }
 `
+export const ADD_BOOK_RATINGS_GQL = gql`
+  mutation addBookRatings($addBookRatingsArgs : AddBookRatingsArgs!){
+    addBookRatings(addBookRatingsArgs : $addBookRatingsArgs)
+  }
+`
+export const GET_BOOK_RATINGS_GQL = gql`
+  mutation getBookRatings($getBookRatingsArgs : GetBookRatingsArgs!){
+    getBookRatings(getBookRatingsArgs : $getBookRatingsArgs) {
+      count
+      book_id
+    }
+  }
+`
 
 
 

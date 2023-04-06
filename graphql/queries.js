@@ -33,6 +33,10 @@ export const BOOK_AND_COLLECTION_BY_ID_GQL = gql`
         id
         status
       }
+      ratings {
+        count
+        book_id
+      }
     }
   }
 `
