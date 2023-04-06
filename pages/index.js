@@ -5,6 +5,16 @@ import { useRouter } from 'next/router';
 import { reloadUserAction } from '../store/auth/authActions';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['common', 'footer'])),
+      // Will be passed to the page component as props
+    },
+  };
+}
 function Home() {
   const router = useRouter();
   const dispatch = useDispatch();
@@ -68,7 +78,7 @@ function Home() {
             className="bg-gray-800 p-3 rounded-lg hover:bg-gray-900 transition duration-[175ms] flex justify-center items-center w-[150px] mt-4"
           >
             <span className="text-sm font-bold text-gray-200">
-              {'Add Book'}
+              {t('add_book')}
             </span>
           </button>
         </div>

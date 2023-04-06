@@ -1,7 +1,8 @@
-import "@/styles/globals.css";
-import Head from "next/head";
-import {Provider} from 'react-redux'
-import { wrapper, store } from "../store/store";
+import '@/styles/globals.css';
+import Head from 'next/head';
+import { Provider } from 'react-redux';
+import { wrapper, store } from '../store/store';
+import { appWithTranslation } from 'next-i18next';
 
 const App = ({ Component, pageProps }) => {
   const getLayout = Component.getLayout || ((page) => page);
@@ -20,6 +21,6 @@ const App = ({ Component, pageProps }) => {
       </Provider>
     </>
   );
-}
+};
 
-export default wrapper.withRedux(App);
+export default wrapper.withRedux(appWithTranslation(App));
