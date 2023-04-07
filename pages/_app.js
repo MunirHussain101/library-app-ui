@@ -9,6 +9,8 @@ import { SUBSCRIBE_BOOK_RATINGS } from '../graphql/subscriptions'
 import {showSnackbar} from '../store/snackbar/snackbarActionTypes'
 import { useDispatch } from 'react-redux';
 import AppAlert from '../components/app-snackbar/AppSnackbar'
+import '@/styles/globals.css';
+import { appWithTranslation } from 'next-i18next';
 
 const App = ({ Component, pageProps }) => {
   const getLayout = Component.getLayout || ((page) => page);
@@ -49,6 +51,6 @@ const App = ({ Component, pageProps }) => {
         </ApolloProvider>
     </>
   );
-}
+};
 
-export default wrapper.withRedux(App);
+export default wrapper.withRedux(appWithTranslation(App));
