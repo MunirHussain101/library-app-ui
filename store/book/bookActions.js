@@ -4,6 +4,7 @@ import { GET_ALL_BOOKS_GQL, ADD_COLLECTIONS_GQL, UPDATE_COLLECTIONS_GQL, ADD_BOO
 import { BOOK_BY_ID_GQL, BOOK_AND_COLLECTION_BY_ID_GQL } from '../../graphql/queries'
 import { apolloClient } from '../../graphql/apollo-client'
 import { AppConstants } from '@/constants/appConstants';
+import { showSnackbar } from '../snackbar/snackbarActionTypes'
 
 export const getBooksAction = (params) => (dispatch) => {
   dispatch(setLoading(true));
@@ -53,10 +54,12 @@ export const getBooksByIdAction = (bookId, userId) => (dispatch) => {
       const { bookCollectionById } = res.data;
       const book = prepareBookData(bookCollectionById)
       dispatch(getSelectedBookSuccess(book));
+      // dispatch(showSnackbar(defaultAlertsParams()))
       dispatch(setLoading(false));
     })
     .catch((err) => {
       console.log(err.message || err);
+      dispatch(showSnackbar(defaultAlertsParams(err.message || 'error', 'error')))
       dispatch(setLoading(false));
     });
 };
@@ -94,10 +97,12 @@ export const addNewBookAction = (params) => (dispatch) => {
     .then((res) => {
       const { addBook } = res.data;
       dispatch(getSelectedBookSuccess(addBook));
+      dispatch(showSnackbar(defaultAlertsParams()))
       dispatch(setLoading(false));
     })
     .catch((err) => {
       dispatch(setLoading(false));
+      dispatch(showSnackbar(defaultAlertsParams(err.message || 'error', 'error')))
       console.log(err.message || err);
     });
 };
@@ -116,6 +121,7 @@ export const addBookRatings = (params) => (dispatch) => {
     .catch((err) => {
       dispatch(setReviewCIP(AppConstants.DONE));
       dispatch(updateBookRatings(params));
+      dispatch(showSnackbar(defaultAlertsParams(err.message || 'error', 'error')))
       console.log(err.message || err);
     });
 };
@@ -182,6 +188,14 @@ const prepareBookData = (bookCollection) => {
 
   const overallRatings = ratingsTotal / ratings.length
 
-
   return { ...bookDetails, ratings: overallRatings, ratingsCount: ratings.length, ratingsTotal }
+}
+
+const defaultAlertsParams = (message = "Success", type = "success") => {
+  return {
+    message,
+    type,
+    show: true,
+    duration: 5000
+  }
 }

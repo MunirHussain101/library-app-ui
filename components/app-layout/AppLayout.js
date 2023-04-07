@@ -1,6 +1,7 @@
 import React from 'react';
 import Footer from '../footer/Footer';
 import Header from '../header/Header';
+import AppAlert from '../app-snackbar/AppSnackbar'
 
 const AppLayout = ({ children }) => {
   return (

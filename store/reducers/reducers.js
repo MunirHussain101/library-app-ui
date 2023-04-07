@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import authReducer from '../auth/authReducer';
 import bookReducer from '../book/bookReducer';
+import snackbarReducer from '../snackbar/snackbarReducer'
 import { SET_LOADING } from '../actions/actions';
 
 const initialState = {
@@ -24,7 +25,8 @@ function root(state = initialState, action) {
 const rootReducer = combineReducers({
   root,
   authReducer,
-  bookReducer
+  bookReducer,
+  snackbarReducer
 });
 
 export default rootReducer;
