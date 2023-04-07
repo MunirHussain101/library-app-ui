@@ -95,7 +95,7 @@ const Header = () => {
                   href="/auth/signup"
                   className="px-4 py-2 font-semibold text-gray-600 rounded hover:text-gray-700 cursor-pointer"
                 >
-                  Logout
+                  {t('logout')}
                 </Link>
               </li>
               <li

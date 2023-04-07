@@ -4,6 +4,7 @@ import BookCard from '@/components/book-card/BookCard';
 import { useRouter } from 'next/router';
 import { reloadUserAction } from '../store/auth/authActions';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'next-i18next';
 
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
@@ -16,6 +17,7 @@ export async function getStaticProps({ locale }) {
   };
 }
 function Home() {
+  const { t } = useTranslation('common');
   const router = useRouter();
   const dispatch = useDispatch();
   const [selectedIndex, setSelectedIndex] = useState(0);
