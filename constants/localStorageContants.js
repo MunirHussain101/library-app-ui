@@ -1,3 +1,4 @@
 export const LocalStorageConstants = {
-  user: 'library_user'
+  user: 'library_user',
+  token: 'library_token'
 }

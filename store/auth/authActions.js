@@ -18,6 +18,7 @@ export const loginUserAction = (params) => (dispatch) => {
     .then((res) => {
       const { login } = res.data;
       localStorage.setItem(LocalStorageConstants.user, JSON.stringify(login))
+      localStorage.setItem(LocalStorageConstants.token, login.token)
       const booksParams = getAllBooksParams(login)
       dispatch(getBooksAction(booksParams))
       dispatch(loginSuccess(login));
@@ -41,6 +42,7 @@ export const registerUserAction = (params) => (dispatch) => {
     .then((res) => {
       const { register } = res.data;
       localStorage.setItem(LocalStorageConstants.user, JSON.stringify(register))
+      localStorage.setItem(LocalStorageConstants.token, register.token)
       const booksParams = getAllBooksParams(login)
       dispatch(getBooksAction(booksParams))
       dispatch(registerSuccess(register));
@@ -63,6 +65,7 @@ export const reloadUserAction = () => (dispatch) => {
 
 export const logoutUserAction = () => (dispatch) => {
   localStorage.removeItem(LocalStorageConstants.user)
+  localStorage.removeItem(LocalStorageConstants.token)
   dispatch(reloadUser(null));
   dispatch(resetBooksState());
 };

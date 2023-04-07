@@ -16,6 +16,7 @@
     "@mui/icons-material": "^5.11.11",
     "@mui/material": "^5.11.15",
     "@mui/styled-engine-sc": "^5.11.11",
+    "apollo-link-context": "^1.0.20",
     "eslint": "8.37.0",
     "eslint-config-next": "13.2.4",
     "graphql": "^16.6.0",

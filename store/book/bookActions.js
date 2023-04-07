@@ -1,5 +1,5 @@
 import { setLoading } from '../actions/actions';
-import { getBookSuccess, getSelectedBookSuccess, getSelectedBookRatingsSuccess, updateBookRatings, setReviewCIP } from '../book/bookActionsType';
+import { getBookSuccess, getSelectedBookSuccess, getSelectedBookRatingsSuccess, updateBookRatings, setReviewCIP, resetBookFetch } from '../book/bookActionsType';
 import { GET_ALL_BOOKS_GQL, ADD_COLLECTIONS_GQL, UPDATE_COLLECTIONS_GQL, ADD_BOOK_GQL, ADD_BOOK_RATINGS_GQL, GET_BOOK_RATINGS_GQL } from '../../graphql/mutations'
 import { BOOK_BY_ID_GQL, BOOK_AND_COLLECTION_BY_ID_GQL } from '../../graphql/queries'
 import { apolloClient } from '../../graphql/apollo-client'
@@ -98,6 +98,7 @@ export const addNewBookAction = (params) => (dispatch) => {
       const { addBook } = res.data;
       dispatch(getSelectedBookSuccess(addBook));
       dispatch(showSnackbar(defaultAlertsParams()))
+      dispatch(resetBookFetch(true));
       dispatch(setLoading(false));
     })
     .catch((err) => {
