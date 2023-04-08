@@ -22,7 +22,7 @@ const authLink = setContext((_, { headers }) => {
 
 // For Socker
 const wsLink = typeof window !== "undefined" ? new WebSocketLink({
-  uri: `${process.env.WS_PROTOCOL}://${process.env.API_BASE_URL}/graphql`,
+  uri: `wss://${process.env.API_BASE_URL}/graphql`,
   options: {
     reconnect: true
   }
