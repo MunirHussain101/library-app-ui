@@ -1,6 +1,5 @@
 import AppLayout from '@/components/app-layout/AppLayout';
 import TextInput from '@/components/text-input/TextInput';
-import { Rating } from '@mui/material';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState, useRef } from 'react';
@@ -9,7 +8,6 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import { addNewBookAction } from '../store/book/bookActions'
 import { resetBookFetch } from '../store/book/bookActionsType'
 import { setLoading } from '../store/actions/actions'
-import { API_URL } from '@/constants/config';
 import CircularProgress from '@mui/material/CircularProgress';
 
 const AddNewBook = () => {
@@ -76,7 +74,7 @@ const AddNewBook = () => {
       data.append('files[]', imgeObj)
     })
 
-    fetch(`${API_URL}/books/avatar`, {
+    fetch(`${process.env.API_URL}/books/avatar`, {
       method: 'POST',
       body: data
     })

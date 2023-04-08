@@ -11,6 +11,12 @@ const nextConfig = {
     ],
   },
   i18n,
+  env: {
+    API_URL: process.env.API_URL,
+    API_BASE_URL: process.env.API_BASE_URL,
+    API_PROTOCOL: process.env.API_PROTOCOL,
+    WS_PROTOCOL: process.env.WS_PROTOCOL,
+  }
 };
 
 module.exports = nextConfig;

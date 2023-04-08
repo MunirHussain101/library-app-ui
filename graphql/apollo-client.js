@@ -1,5 +1,4 @@
-import { ApolloClient, InMemoryCache, split, HttpLink } from '@apollo/client';
-import { API_BASE_URL, API_PROTOCOL, WS_PROTOCOL } from '../constants/config'
+import { ApolloClient, InMemoryCache, split, HttpLink } from '@apollo/client'
 import { getMainDefinition } from '@apollo/client/utilities';
 import { WebSocketLink } from '@apollo/client/link/ws'
 import { LocalStorageConstants } from '@/constants/localStorageContants';
@@ -7,13 +6,12 @@ import { setContext } from 'apollo-link-context';
 
 // For HTTP Calls
 const httpLink = new HttpLink({
-  uri: `${API_PROTOCOL}://${API_BASE_URL}/graphql`
+  uri: `${process.env.API_PROTOCOL}://${process.env.API_BASE_URL}/graphql`
 });
 
 const authLink = setContext((_, { headers }) => {
-  // get the authentication token from local storage if it exists
   const token = localStorage.getItem(LocalStorageConstants.token)
-  // return the headers to the context so httpLink can read them
+  
   return {
     headers: {
       ...headers,
@@ -24,7 +22,7 @@ const authLink = setContext((_, { headers }) => {
 
 // For Socker
 const wsLink = typeof window !== "undefined" ? new WebSocketLink({
-  uri: `${WS_PROTOCOL}://${API_BASE_URL}/graphql`,
+  uri: `${process.env.WS_PROTOCOL}://${process.env.API_BASE_URL}/graphql`,
   options: {
     reconnect: true
   }
