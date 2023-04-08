@@ -63,6 +63,7 @@ const AddNewBook = () => {
         <span className="text-center text-sm text-gray-300"></span>
         <div className="w-full flex flex-col items-center mt-4">
           <TextInput
+           id="title"
             required={true}
             type="text"
             fieldName={'title'}
@@ -74,6 +75,7 @@ const AddNewBook = () => {
             }
           />
           <TextInput
+          id="auth"
             required={true}
             type="text"
             fieldName={'author'}
@@ -84,8 +86,8 @@ const AddNewBook = () => {
               'focus:outline-0 p-3 border-2 border-gray-400 focus-within:border-gray-100 transition duration-[175ms] text-gray-200 rounded-lg bg-inherit w-full h-[60px] mb-3'
             }
           />
-          <div className="flex justify-start items-start w-full mb-3">
-            <Rating
+          <div className="flex justify-start items-start w-full mb-3" >
+            <Rating id="rating"
               value={formData.rating}
               onChange={(e) => {
                 setFormData({ ...formData, rating: +e.target.value });
@@ -93,6 +95,7 @@ const AddNewBook = () => {
             />
           </div>
           <TextInput
+          id='date'
             required={true}
             type="date"
             fieldName={'date'}
@@ -104,6 +107,7 @@ const AddNewBook = () => {
             }
           />
           <TextInput
+          id='collection'
             required={true}
             type="text"
             fieldName={'collection'}
@@ -116,6 +120,7 @@ const AddNewBook = () => {
           />
           <div className="flex justify-start w-full">
             <input
+            id="file"
               onChange={onChange}
               type="file"
               name="file"
@@ -123,7 +128,7 @@ const AddNewBook = () => {
               required={true}
             />
           </div>
-          <button
+          <button data-cy="submit"
             type="submit"
             className="bg-gray-800 p-3 rounded-lg hover:bg-gray-900 transition duration-[175ms] flex justify-center items-center w-full mt-4"
           >

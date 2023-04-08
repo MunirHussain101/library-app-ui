@@ -49,6 +49,8 @@ function SignIn() {
         </span>
         <div className="w-full flex flex-col items-center mt-4">
           <TextInput
+            // data-cy=""
+            datacy ="error-email"
             required={true}
             type="email"
             fieldName={'email'}
@@ -56,10 +58,12 @@ function SignIn() {
             inputValue={formData.email}
             setInputValue={updateFormData}
             className={
-              'focus:outline-0 p-3 border-2 border-gray-400 focus-within:border-gray-100 transition duration-[175ms] text-gray-200 rounded-lg bg-inherit w-full h-[60px]'
+              'error-e focus:outline-0 p-3 border-2 border-gray-400 focus-within:border-gray-100 transition duration-[175ms] text-gray-200 rounded-lg bg-inherit w-full h-[60px]'
             }
           />
           <TextInput
+            //  data-cy=""
+             datacy ="error-pswd"
             required={true}
             type="password"
             fieldName={'password'}
@@ -67,10 +71,11 @@ function SignIn() {
             inputValue={formData.password}
             setInputValue={updateFormData}
             className={
-              'focus:outline-0 p-3 border-2 border-gray-400 focus-within:border-gray-100 transition duration-[175ms] text-gray-200 rounded-lg bg-inherit w-full h-[60px] mt-3'
+              'error-p focus:outline-0 p-3 border-2 border-gray-400 focus-within:border-gray-100 transition duration-[175ms] text-gray-200 rounded-lg bg-inherit w-full h-[60px] mt-3'
             }
           />
           <button
+          data-cy="submit"
             type="submit"
             className="bg-gray-800 p-3 rounded-lg hover:bg-gray-900 transition duration-[175ms] flex justify-center items-center w-full mt-4"
           >
@@ -79,6 +84,7 @@ function SignIn() {
             <span className="text-sm font-bold text-gray-200">{'Sign In'}</span>
           }
           </button>
+          
           <span className="text-gray-200 text-sm text-center mt-2">
             {"Don't have an account? "}
             <span
