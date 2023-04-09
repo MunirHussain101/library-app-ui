@@ -44,11 +44,7 @@ const bookReducer = (
     case BookActionsType.UPDATE_BOOK_RATINGS_SUCCESS: {
       const bookClone = { ...state.book }
       const bookRatingsClone = { ...state.bookRatings }
-      bookClone.ratingsTotal = bookClone.ratingsTotal + action.payload.count
-      if (state.bookRatings.count) {
-        bookClone.ratingsCount += 1
-      }
-      bookClone.ratings = bookClone.ratingsTotal / bookClone.ratingsCount
+      bookClone.ratings = action.payload.count
       bookRatingsClone.count = action.payload.count
 
       return {

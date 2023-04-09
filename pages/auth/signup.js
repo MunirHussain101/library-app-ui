@@ -49,7 +49,9 @@ function SignUp() {
           Sign in using your email, password and name
         </span>
         <div className="w-full flex flex-col items-center mt-4">
-          <TextInput
+          <TextInput 
+           datacy ="error-name"
+           id="name"
             required={true}
             type="name"
             fieldName={'name'}
@@ -60,7 +62,9 @@ function SignUp() {
               'focus:outline-0 p-3 border-2 border-gray-400 focus-within:border-gray-100 transition duration-[175ms] text-gray-200 rounded-lg bg-inherit w-full h-[60px] mb-3'
             }
           />
-          <TextInput
+          <TextInput 
+          id="email"
+          datacy ="error-email"
             required={true}
             type="email"
             fieldName={'email'}
@@ -71,7 +75,9 @@ function SignUp() {
               'focus:outline-0 p-3 border-2 border-gray-400 focus-within:border-gray-100 transition duration-[175ms] text-gray-200 rounded-lg bg-inherit w-full h-[60px]'
             }
           />
-          <TextInput
+          <TextInput 
+          id="pswd"
+          datacy ="error-pswd"
             required={true}
             type="password"
             fieldName={'password'}
@@ -82,7 +88,7 @@ function SignUp() {
               'focus:outline-0 p-3 border-2 border-gray-400 focus-within:border-gray-100 transition duration-[175ms] text-gray-200 rounded-lg bg-inherit w-full h-[60px] mt-3'
             }
           />
-          <button
+          <button data-cy="submit"
             type="submit"
             className="bg-gray-800 p-3 rounded-lg hover:bg-gray-900 transition duration-[175ms] flex justify-center items-center w-full mt-4"
           >

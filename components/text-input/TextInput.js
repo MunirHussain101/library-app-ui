@@ -10,6 +10,9 @@ const TextInput = ({
   inputClassName = '',
   fieldName = '',
   type = 'text',
+  datacy="error-textbox",
+  dataf="add-text",
+  id="",
   required = false,
   onFocus = () => {},
   onBlur = () => {},
@@ -20,7 +23,10 @@ const TextInput = ({
 
   return (
     <div className={`${className} flex justify-between items-center`}>
-      <input
+      <input 
+        id={id}
+        datacy={datacy}
+        data-cy={dataf}
         disabled={disabled}
         onFocus={onFocus}
         onBlur={onBlur}

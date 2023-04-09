@@ -121,6 +121,7 @@ const AddNewBook = () => {
         <span className="text-center text-sm text-gray-300"></span>
         <div className="w-full flex flex-col items-center mt-4">
           <TextInput
+           id="title"
             required={true}
             type="text"
             fieldName={'title'}
@@ -132,6 +133,7 @@ const AddNewBook = () => {
             }
           />
           <TextInput
+          id="auth"
             required={true}
             type="text"
             fieldName={'author'}
@@ -164,6 +166,7 @@ const AddNewBook = () => {
           </div> */}
 
           <TextInput
+          id='date'
             required={true}
             type="date"
             fieldName={'book_created_at'}
@@ -176,6 +179,7 @@ const AddNewBook = () => {
           />
           <div className="flex justify-start w-full m-3">
             <input
+            id="file"
               onChange={onChange}
               type="file"
               name="file"

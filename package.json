@@ -18,6 +18,7 @@
     "@mui/material": "^5.11.15",
     "@mui/styled-engine-sc": "^5.11.11",
     "apollo-link-context": "^1.0.20",
+    "cypress": "^12.9.0",
     "eslint": "8.37.0",
     "eslint-config-next": "13.2.4",
     "graphql": "^16.6.0",
@@ -37,6 +38,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.4.14",
+    "cypress-file-upload": "^5.0.8",
     "postcss": "^8.4.21",
     "tailwindcss": "^3.3.1"
   }

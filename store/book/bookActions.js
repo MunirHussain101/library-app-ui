@@ -54,7 +54,6 @@ export const getBooksByIdAction = (bookId, userId) => (dispatch) => {
       const { bookCollectionById } = res.data;
       const book = prepareBookData(bookCollectionById)
       dispatch(getSelectedBookSuccess(book));
-      // dispatch(showSnackbar(defaultAlertsParams()))
       dispatch(setLoading(false));
     })
     .catch((err) => {
