@@ -117,6 +117,7 @@ export const addBookRatings = (params) => (dispatch) => {
     .then((res) => {
       dispatch(updateBookRatings(params));
       dispatch(setReviewCIP(AppConstants.DONE));
+      getBooksByIdAction(params.book_id, params.user_id)
     })
     .catch((err) => {
       dispatch(setReviewCIP(AppConstants.DONE));
