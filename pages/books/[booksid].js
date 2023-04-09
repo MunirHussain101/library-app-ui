@@ -38,7 +38,6 @@ const BookDetails = () => {
   useEffect(() => {
     if (bookReducer.reviewCIP == AppConstants.DONE) {
       setRatingDialog(false)
-      getSelectedBookDetails()
       dispatch(setReviewCIP(''))
     }
   }, [bookReducer.reviewCIP])

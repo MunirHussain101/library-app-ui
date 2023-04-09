@@ -43,7 +43,7 @@ export const registerUserAction = (params) => (dispatch) => {
       const { register } = res.data;
       localStorage.setItem(LocalStorageConstants.user, JSON.stringify(register))
       localStorage.setItem(LocalStorageConstants.token, register.token)
-      const booksParams = getAllBooksParams(login)
+      const booksParams = getAllBooksParams(register)
       dispatch(getBooksAction(booksParams))
       dispatch(registerSuccess(register));
       dispatch(showSnackbar(defaultAlertsParams()))

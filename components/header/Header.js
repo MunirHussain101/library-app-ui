@@ -3,13 +3,16 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { logoutUserAction } from '../../store/auth/authActions';
 import { useRouter } from 'next/router';
-import { useTranslation } from 'next-i18next';
+import  ar from "../../public/locales/ar/common.json";
+import en from "../../public/locales/en/common.json";
+
 
 const Header = () => {
-  const { t } = useTranslation('common');
+  const router = useRouter();
   const { authReducer: auth } = useSelector((state) => state);
   const dispatch = useDispatch();
-  const router = useRouter();
+  const translation =  { ar, en }
+  const { header_text, sign_up, logout, sign_in, welcome }  = translation[router.locale || 'en']
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -22,7 +25,7 @@ const Header = () => {
       <div className="flex items-center justify-between mx-auto max-w-7xl">
         <Link href="/">
           <span className="text-2xl font-extrabold text-gray-800">
-            {t('header_text')}
+            { header_text }
           </span>
         </Link>
 
@@ -34,7 +37,7 @@ const Header = () => {
                   href="/auth/signup"
                   className=" font-semibold text-gray-600 rounded hover:text-gray-700 cursor-pointer"
                 >
-                  {t('sign_up')}
+                  { sign_up }
                 </Link>
               </li>
               <li className="p-2">
@@ -42,7 +45,7 @@ const Header = () => {
                   href="/auth/signin"
                   className="px-4 py-2 font-semibold text-gray-600 rounded hover:text-gray-700 cursor-pointer"
                 >
-                  {t('sign_in')}
+                  {sign_in}
                 </Link>
               </li>
               <li
@@ -86,7 +89,7 @@ const Header = () => {
         {auth.isLoggedIn && (
           <div className="flex items-center space-x-1">
             <span>
-              {t('welcome')}, {auth?.user?.name || ''}
+              {welcome}, {auth?.user?.name || ''}
             </span>
             <ul className="flex items-center">
               <li>
@@ -95,7 +98,7 @@ const Header = () => {
                   href="/auth/signup"
                   className="px-4 py-2 font-semibold text-gray-600 rounded hover:text-gray-700 cursor-pointer"
                 >
-                  {t('logout')}
+                  {logout}
                 </Link>
               </li>
               <li
