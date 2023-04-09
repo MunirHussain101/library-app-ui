@@ -2,7 +2,7 @@
 
 describe('create book', () => {
   it('Should show validation errors when leaving all fields blank', () => {
-    cy.visit('http://localhost:3001/add-book')
+    cy.visit('http://localhost:3000/add-book')
     
     cy.get('[data-cy="submit"]').click();
     cy.get('#title').should('exist');
@@ -16,7 +16,7 @@ describe('create book', () => {
 
 
   it('should redirect the user to a success page when filling the create book form and clicking submit button',()=>{
-    cy.visit('http://localhost:3001/add-book')
+    cy.visit('http://localhost:3000/add-book')
   
     cy.get('#title').type('Physics');
     cy.get('#auth').type('Zain Raza');
@@ -24,10 +24,9 @@ describe('create book', () => {
     cy.get('#date').type('2023-04-07');
     cy.get('#collection').type('10');
 
-      const filepath = 'images/Issues.PNG'
-      cy.get('#file').attachFile(filepath)
+    const filepath = 'images/Issues.PNG'
+    cy.get('#file').attachFile(filepath)
   
-
     cy.get('[data-cy="submit"]').click();
   
   })
